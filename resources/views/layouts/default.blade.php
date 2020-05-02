@@ -12,9 +12,9 @@
 </head>
 
 <body>
-@if($page == 'main')
+@if(@isset($page) == 'main')
 
-    @include('includes.header')
+    @include('includes.header-main')
 
 @else
 

@@ -12,3 +12,9 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 *.log
+*.jpg
+*.jpeg
+*.png
+*.svg
+/public/assets/fonts
+/public/assets/img

@@ -17,6 +17,8 @@ Route::get('/', function () {
     return view('index', ['page' => 'main']);
 });
 
-Route::get('/inner.php', function () {
+Route::get('inner', function () {
     return view('inner');
 });
+
+Route::resource('posts', 'PostsController');
