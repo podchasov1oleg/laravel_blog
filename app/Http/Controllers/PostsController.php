@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Post;
 use Illuminate\Http\Request;
 
 class PostsController extends Controller
 {
     public function index()
     {
-        return "Hello World!";
+        return view('pages.blog', ['posts' => Post::all()]);
     }
 
-    public function store(\Illuminate\Http\Request $request)
+    public function store(Request $request)
     {
-        Post::create($request->only(['title', 'description']));
-        return redirect('posts');
+        Post::all();
     }
 
     public function create()
@@ -22,15 +22,10 @@ class PostsController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
-        //
+        return view('pages.detail', ['post' => Post::where('id', $id)->get()[0]]);
     }
 
     /**

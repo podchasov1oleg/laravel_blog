@@ -14,11 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('index', ['page' => 'main']);
+    return view('pages.index', ['page' => 'main']);
 });
 
-Route::get('inner', function () {
-    return view('inner');
-});
+Route::get('blog', 'PostsController@index');
+
+Route::get('blog/{id}', 'PostsController@show');
 
 Route::resource('posts', 'PostsController');
+
+Route::view('admin', 'pages.admin');
