@@ -17,10 +17,11 @@ Route::get('/', function () {
     return view('pages.index', ['page' => 'main']);
 });
 
-Route::get('blog', 'PostsController@index');
+//Route::get('posts', 'PostsController@index');
 
-Route::get('blog/{id}', 'PostsController@show');
-
-Route::resource('posts', 'PostsController');
+Route::get('posts/{id}', 'PostsController@show')->name('posts.show');
+Route::get('admin/posts/{id}', 'PostsController@show')->name('admin.posts.show');
 
 Route::view('admin', 'pages.admin');
+
+Route::get('{admin?}posts', 'PostsController@index')->where(['admin' => 'admin/|']);

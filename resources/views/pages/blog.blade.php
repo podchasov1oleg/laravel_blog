@@ -11,11 +11,11 @@
                             @foreach($posts as $post)
                                 <div class="{{$loop->first ? 'col-12' : 'col-lg-6'}}">
                                     <div class="news-item {{$loop->first ? 'first' : ''}}">
-                                        <a href="/blog/{{$post->id}}">
+                                        <a href="{{route('posts.show', ['id' => $post->id])}}">
                                             <img src="https://via.placeholder.com/795x447" alt="">
                                         </a>
                                         <h4 class="bg-orange">
-                                            <a href="/blog/{{$post->id}}">
+                                            <a href="{{route('posts.show', ['id' => $post->id])}}">
                                                 {{$post->title}}
                                             </a>
                                         </h4>

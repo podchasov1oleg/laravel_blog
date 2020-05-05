@@ -4,12 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 class PostsController extends Controller
 {
-    public function index()
+    public function index($admin = '')
     {
-        return view('pages.blog', ['posts' => Post::all()]);
+        if ($admin) {
+            return view('pages.admin-posts', ['posts' => Post::all()]);
+        } else {
+            return view('pages.blog', ['posts' => Post::all()]);
+        }
     }
 
     public function store(Request $request)
@@ -25,7 +30,11 @@ class PostsController extends Controller
 
     public function show($id)
     {
-        return view('pages.detail', ['post' => Post::where('id', $id)->get()[0]]);
+        if (Route::currentRouteName() == 'admin.posts.show') {
+            return view('pages.admin-detail', ['post' => Post::find($id)]);
+        } else {
+            return view('pages.detail', ['post' => Post::find($id)]);
+        }
     }
 
     /**
