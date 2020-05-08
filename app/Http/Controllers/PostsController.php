@@ -19,12 +19,17 @@ class PostsController extends Controller
 
     public function store(Request $request)
     {
-        Post::all();
+        $post = new Post;
+        $post->title = $request->title;
+        $post->intro = $request->title;
+        $post->body = $request->body;
+        $saved = $post->save();
+        return view('pages.admin-posts', ['posts' => Post::all() , 'success' => $saved]);
     }
 
     public function create()
     {
-
+        return view('pages.admin-create');
     }
 
 
@@ -45,7 +50,7 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('pages.admin-edit', ['post' => Post::find($id)]);
     }
 
     /**
@@ -55,9 +60,15 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $post = Post::find($request->id);
+
+        $post->title = $request->title;
+        $post->intro = $request->intro;
+        $post->body = $request->body;
+        $updated = $post->save();
+        return redirect()->action('PostsController@index', ['admin' => 'admin/'])->with(['updated' => $updated]);
     }
 
     /**
@@ -68,6 +79,8 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::find($id);
+        $deleted = $post->delete();
+        return redirect()->action('PostsController@index', ['admin' => 'admin/'])->with(['deleted' => $deleted]);
     }
 }

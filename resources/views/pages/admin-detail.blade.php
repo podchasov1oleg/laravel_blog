@@ -8,10 +8,8 @@
             {{$post->intro}}
         </div>
         <div class="card-footer">
-            {{$post->body}}
+            {!!$post->body!!}
         </div>
     </div>
-    {{--TODO сделать маршруты и ссылки--}}
-    <a href="#" class="btn btn-block btn-warning">Edit post</a>
-    <a href="#" class="btn btn-block btn-danger">Delete post</a>
+    <a href="{{route('post.edit', ['id' => $post->id])}}" class="btn btn-block btn-warning">Edit post</a>
 @endsection

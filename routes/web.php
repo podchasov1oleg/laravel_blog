@@ -12,16 +12,21 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+//Main page
 Route::get('/', function () {
     return view('pages.index', ['page' => 'main']);
 });
-
-//Route::get('posts', 'PostsController@index');
-
+//Public part
 Route::get('posts/{id}', 'PostsController@show')->name('posts.show');
-Route::get('admin/posts/{id}', 'PostsController@show')->name('admin.posts.show');
+//Admin routes
+//Posts resource
+Route::get('{admin?}posts', 'PostsController@index')->where(['admin' => 'admin/|'])->name('posts.list');
+Route::get('admin/posts/{id}', 'PostsController@show')->where('id', '[0-9]+')->name('admin.posts.show');
+Route::delete('admin/posts/{id}/destroy', 'PostsController@destroy')->where('id', '[0-9]+')->name('post.delete');
+Route::get('admin/posts/{id}/edit', 'PostsController@edit')->where('id', '[0-9]+')->name('post.edit');
+Route::patch('admin/posts', 'PostsController@update')->name('post.update');
+Route::get('admin/posts/create', 'PostsController@create')->name('admin.posts.create');
+Route::post('admin/posts', 'PostsController@store')->name('posts.store');
 
 Route::view('admin', 'pages.admin');
 
-Route::get('{admin?}posts', 'PostsController@index')->where(['admin' => 'admin/|']);

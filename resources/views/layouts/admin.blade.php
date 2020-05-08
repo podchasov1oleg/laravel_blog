@@ -15,6 +15,9 @@
     <link rel="stylesheet" href="{{asset("assets/admin/dist/css/adminlte.min.css")}}">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    {{--TODO подключить красиво--}}
+    <link rel="stylesheet" href="{{asset('assets/admin/plugins/summernote/summernote-bs4.css')}}">
+
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -171,13 +174,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/admin/posts" class="nav-link">
+                                <a href="{{route('posts.list', ['admin' => 'admin/'])}}" class="nav-link">
                                     <i class="fas fa-table nav-icon"></i>
                                     <p>All posts</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/admin/posts/create" class="nav-link">
+                                <a href="{{route('admin.posts.create')}}" class="nav-link">
                                     <i class="fas fa-plus nav-icon"></i>
                                     <p>New post</p>
                                 </a>
@@ -243,11 +246,19 @@
 <!-- Bootstrap -->
 <script src="{{asset("assets/admin/plugins/bootstrap/js/bootstrap.bundle.min.js")}}"></script>
 <!-- AdminLTE -->
-<script src="{{asset("assets/admin/dist/js/adminlte.js")}}"></script>
+<script src="{{asset("assets/admin/dist/js/adminlte.min.js")}}"></script>
 
 <!-- OPTIONAL SCRIPTS -->
 <script src="{{asset("assets/admin/plugins/chart.js/Chart.min.js")}}"></script>
 <script src="{{asset("assets/admin/dist/js/demo.js")}}"></script>
 <script src="{{asset("assets/admin/dist/js/pages/dashboard3.js")}}"></script>
+<script src="{{asset("assets/admin/plugins/summernote/summernote-bs4.min.js")}}"></script>
+<script>
+    $(function () {
+        // Summernote
+        $('.textarea').summernote()
+    })
+</script>
+{{--TODO подключить красиво--}}
 </body>
 </html>
