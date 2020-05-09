@@ -164,7 +164,7 @@
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
-                    <li class="nav-item has-treeview">
+                    <li class="nav-item has-treeview menu-open">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-edit"></i>
                             <p>
@@ -253,11 +253,15 @@
 <script src="{{asset("assets/admin/dist/js/demo.js")}}"></script>
 <script src="{{asset("assets/admin/dist/js/pages/dashboard3.js")}}"></script>
 <script src="{{asset("assets/admin/plugins/summernote/summernote-bs4.min.js")}}"></script>
+<script src="{{asset("assets/admin/plugins/bs-custom-file-input/bs-custom-file-input.min.js")}}"></script>
 <script>
     $(function () {
         // Summernote
         $('.textarea').summernote()
-    })
+    });
+    $(document).ready(function () {
+        bsCustomFileInput.init();
+    });
 </script>
 {{--TODO подключить красиво--}}
 </body>

@@ -9,7 +9,7 @@
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
-                    <form role="form" method="post" action="{{route('posts.store')}}">
+                    <form role="form" method="post" enctype="multipart/form-data" action="{{route('posts.store')}}">
                         @csrf
                         <div class="card-body">
                             <div class="form-group">
@@ -27,11 +27,11 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputFile">File input</label>
+                                <label for="exampleInputFile">Image for post (795*448px)</label>
                                 <div class="input-group">
                                     <div class="custom-file">
                                         {{--TODO Реализовать--}}
-                                        <input type="file" disabled class="custom-file-input" id="exampleInputFile">
+                                        <input type="file" name="image" class="custom-file-input" id="exampleInputFile">
                                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                     </div>
                                     <div class="input-group-append">

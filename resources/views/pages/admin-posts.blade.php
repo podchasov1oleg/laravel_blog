@@ -2,7 +2,7 @@
 @section('content')
     <div class="row">
         <div class="col-12">
-            @if(!empty($success) && $success)
+            @if(!empty(session('success')) && session('updated'))
                 <div class="callout callout-success">
                     <h5>New post has been created</h5>
                     <p>You successfully added new post in database!</p>
@@ -44,7 +44,8 @@
                                     <td style="max-width: 200px; overflow: hidden">{{$post->body}}</td>
                                     <td style="max-width: 200px; overflow: hidden">{{$post->created_at ?? "-"}}</td>
                                     <td>
-                                        <a href="{{route('admin.posts.show', ['id' => $post->id])}}" class="btn btn-block btn-primary btn-sm">To detail</a>
+                                        <a href="{{route('admin.posts.show', ['id' => $post->id])}}" class="btn btn-block btn-primary btn-sm">See more</a>
+                                        <a href="{{route('posts.show', ['id' => $post->id])}}" class="btn btn-block btn-success btn-sm">See in public</a>
                                         {{--TODO добавить сюда ссылку, когда будет маршрут--}}
                                         <button type="button" class="btn btn-block btn-danger btn-sm" data-toggle="modal" data-target="#modal-danger{{$post->id}}">
                                             Delete Post

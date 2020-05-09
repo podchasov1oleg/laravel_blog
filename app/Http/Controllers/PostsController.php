@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 class PostsController extends Controller
 {
@@ -20,11 +22,25 @@ class PostsController extends Controller
     public function store(Request $request)
     {
         $post = new Post;
+
+        if ($request->image) {
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $path = $file->getClientOriginalName();
+            if (Storage::disk('public')->exists($path)) {
+                $path = '_.' . $file->getClientOriginalName();
+                /*TODO Можно обработать, если не удалось сохрпанить фото*/
+            }
+            Storage::disk('public')->put($path, File::get($file));
+            /*TODO сделать заглушку, если файла нет*/
+            $post->image = 'storage/' . $path;
+        }
+
         $post->title = $request->title;
         $post->intro = $request->title;
         $post->body = $request->body;
         $saved = $post->save();
-        return view('pages.admin-posts', ['posts' => Post::all() , 'success' => $saved]);
+        return redirect()->action('PostsController@index', ['admin' => 'admin/'])->with(['success' => $saved]);
     }
 
     public function create()
@@ -42,27 +58,25 @@ class PostsController extends Controller
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         return view('pages.admin-edit', ['post' => Post::find($id)]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request)
     {
         $post = Post::find($request->id);
+
+        if ($request->image) {
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $path = $file->getClientOriginalName() . '.' . $extension;
+            if (!Storage::disk('public')->exists($path)) {
+                Storage::disk('public')->put($path, File::get($file));
+                $post->image = 'storage/' . $path;
+                /*TODO Можно обработать, если не удалось сохрпанить фото*/
+            }
+        }
 
         $post->title = $request->title;
         $post->intro = $request->intro;
@@ -71,12 +85,6 @@ class PostsController extends Controller
         return redirect()->action('PostsController@index', ['admin' => 'admin/'])->with(['updated' => $updated]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $post = Post::find($id);

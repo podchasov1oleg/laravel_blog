@@ -12,7 +12,7 @@
                                 <div class="{{$loop->first ? 'col-12' : 'col-lg-6'}}">
                                     <div class="news-item {{$loop->first ? 'first' : ''}}">
                                         <a href="{{route('posts.show', ['id' => $post->id])}}">
-                                            <img src="https://via.placeholder.com/795x447" alt="">
+                                            <img src="{{asset($post->image)}}" alt="">
                                         </a>
                                         <h4 class="bg-orange">
                                             <a href="{{route('posts.show', ['id' => $post->id])}}">

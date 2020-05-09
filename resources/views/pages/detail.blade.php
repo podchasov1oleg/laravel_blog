@@ -7,11 +7,11 @@
             <div class="row">
                 <div class="col-9 news-detail">
                     <div class="news-item detail">
-                        <img src="https://via.placeholder.com/795x447" alt="">
+                        <img src="{{asset($post->image)}}" alt="">
                     </div>
                     <hr>
                     <p>
-                        {{$post->body}}
+                        {!!$post->body!!}
                     </p>
                 </div>
                 @include('partials.tags')
