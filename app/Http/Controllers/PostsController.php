@@ -15,8 +15,22 @@ class PostsController extends Controller
         if ($admin) {
             return view('pages.admin-posts', ['posts' => Post::all()]);
         } else {
-            return view('pages.blog', ['posts' => Post::all()]);
+            return view('pages.blog', ['posts' => Post::where('active', 1)->orderBy('title', 'asc')->get()]);
         }
+    }
+
+    public function deactivate(Request $request)
+    {
+        $post = Post::find($request->route()->parameter('id'));
+        if ($request->active == 'activated') {
+            $post->active = 1;
+        } elseif ($request->active == 'deactivated') {
+            $post->active = 0;
+        }
+        $updated = $post->save();
+        return redirect()
+            ->action('PostsController@index', ['admin' => 'admin/'])
+            ->with(['action' => $request->active, 'success' => $updated]);
     }
 
     public function store(Request $request)
@@ -25,7 +39,6 @@ class PostsController extends Controller
 
         if ($request->image) {
             $file = $request->file('image');
-            $extension = $file->getClientOriginalExtension();
             $path = $file->getClientOriginalName();
             if (Storage::disk('public')->exists($path)) {
                 $path = '_.' . $file->getClientOriginalName();
@@ -40,7 +53,9 @@ class PostsController extends Controller
         $post->intro = $request->title;
         $post->body = $request->body;
         $saved = $post->save();
-        return redirect()->action('PostsController@index', ['admin' => 'admin/'])->with(['success' => $saved]);
+        return redirect()
+            ->action('PostsController@index', ['admin' => 'admin/'])
+            ->with(['action' => 'added', 'success' => $saved]);
     }
 
     public function create()
@@ -82,13 +97,17 @@ class PostsController extends Controller
         $post->intro = $request->intro;
         $post->body = $request->body;
         $updated = $post->save();
-        return redirect()->action('PostsController@index', ['admin' => 'admin/'])->with(['updated' => $updated]);
+        return redirect()
+            ->action('PostsController@index', ['admin' => 'admin/'])
+            ->with(['action' => 'updated', 'success' => $updated]);
     }
 
     public function destroy($id)
     {
         $post = Post::find($id);
         $deleted = $post->delete();
-        return redirect()->action('PostsController@index', ['admin' => 'admin/'])->with(['deleted' => $deleted]);
+        return redirect()
+            ->action('PostsController@index', ['admin' => 'admin/'])
+            ->with(['action' => 'deleted', 'success' => $deleted]);
     }
 }

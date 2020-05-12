@@ -19,6 +19,7 @@ class CreatePostsTable extends Migration
             $table->text('intro');
             $table->text('body');
             $table->string('image');
+            $table->boolean('active');
             $table->timestamps();
         });
     }

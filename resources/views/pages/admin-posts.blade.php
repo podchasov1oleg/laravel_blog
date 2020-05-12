@@ -1,21 +1,49 @@
 @extends('layouts.admin')
 @section('content')
+    <?php
+        switch (session('action')) {
+            case 'activated':
+                if (session('success')) {
+                    $notice = 'activated successfully';
+                } else {
+                    $notice = 'not activated successfully';
+                }
+                break;
+            case 'deactivated':
+                if (session('success')) {
+                    $notice = 'deactivated successfully';
+                } else {
+                    $notice = 'not deactivated successfully';
+                }
+                break;
+            case 'added':
+                if (session('success')) {
+                    $notice = 'added successfully';
+                } else {
+                    $notice = 'not added successfully';
+                }
+                break;
+            case 'updated':
+                if (session('success')) {
+                    $notice = 'updated successfully';
+                } else {
+                    $notice = 'not updated successfully';
+                }
+                break;
+            case 'deleted':
+                if (session('success')) {
+                    $notice = 'deleted successfully';
+                } else {
+                    $notice = 'not deleted successfully';
+                }
+                break;
+        }
+    ?>
     <div class="row">
         <div class="col-12">
-            @if(!empty(session('success')) && session('updated'))
-                <div class="callout callout-success">
-                    <h5>New post has been created</h5>
-                    <p>You successfully added new post in database!</p>
-                </div>
-            @elseif(!empty(session('updated')) && session('updated') == 'updated')
+            @if(!empty($notice))
                 <div class="callout callout-info">
-                    <h5>New post has been updated</h5>
-                    <p>You successfully updated post in database!</p>
-                </div>
-            @elseif(!empty(session('deleted')) && session('deleted') == 'deleted')
-                <div class="callout callout-warning">
-                    <h5>The post was deleted successfully</h5>
-                    <p>You just deleted a post from database!</p>
+                    <h5>The post was {{$notice}}</h5>
                 </div>
             @endif
             <div class="card">
@@ -29,6 +57,7 @@
                         <tr>
                             <th>ID</th>
                             <th>Title</th>
+                            <th>Active</th>
                             <th>Intro</th>
                             <th>Body</th>
                             <th>Created at</th>
@@ -39,15 +68,16 @@
                             @foreach($posts as $post)
                                 <tr>
                                     <td>{{$post->id}}</td>
-                                    <td>{{$post->title}}</td>
-                                    <td style="max-width: 200px; overflow: hidden">{{$post->intro}}</td>
-                                    <td style="max-width: 200px; overflow: hidden">{{$post->body}}</td>
-                                    <td style="max-width: 200px; overflow: hidden">{{$post->created_at ?? "-"}}</td>
+                                    <td style="max-width: 200px; overflow: hidden">{{$post->title}}</td>
+                                    <td style="max-width: 100px;"><input type="checkbox" {{$post->active ? 'checked' : ''}} onclick="return false;" name="" id=""></td>
+                                    <td style="max-width: 200px; overflow: hidden;word-break: break-word;">{{$post->intro}}</td>
+                                    <td style="max-width: 200px; overflow: hidden;word-break: break-word;">{{$post->body}}</td>
+                                    <td style="max-width: 100px; overflow: hidden">{{$post->created_at ?? "-"}}</td>
                                     <td>
-                                        <a href="{{route('admin.posts.show', ['id' => $post->id])}}" class="btn btn-block btn-primary btn-sm">See more</a>
-                                        <a href="{{route('posts.show', ['id' => $post->id])}}" class="btn btn-block btn-success btn-sm">See in public</a>
+                                        <a href="{{route('admin.posts.show', ['id' => $post->id])}}" class="btn btn-block btn-outline-info btn-sm">See more</a>
+                                        <a href="{{route('posts.show', ['id' => $post->id])}}" class="btn btn-block btn-outline-primary btn-sm">See in public</a>
                                         {{--TODO добавить сюда ссылку, когда будет маршрут--}}
-                                        <button type="button" class="btn btn-block btn-danger btn-sm" data-toggle="modal" data-target="#modal-danger{{$post->id}}">
+                                        <button type="button" class="btn btn-block btn-outline-warning btn-sm" data-toggle="modal" data-target="#modal-danger{{$post->id}}">
                                             Delete Post
                                         </button>
                                     </td>
