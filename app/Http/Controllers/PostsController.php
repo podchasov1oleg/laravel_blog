@@ -60,7 +60,7 @@ class PostsController extends Controller
 
     public function create()
     {
-        return view('pages.admin-create');
+        return view('pages.admin-post-create');
     }
 
 
@@ -84,8 +84,7 @@ class PostsController extends Controller
 
         if ($request->image) {
             $file = $request->file('image');
-            $extension = $file->getClientOriginalExtension();
-            $path = $file->getClientOriginalName() . '.' . $extension;
+            $path = $file->getClientOriginalName();
             if (!Storage::disk('public')->exists($path)) {
                 Storage::disk('public')->put($path, File::get($file));
                 $post->image = 'storage/' . $path;

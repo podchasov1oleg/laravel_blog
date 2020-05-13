@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="{{asset('assets/css/news.css')}}">
 <link rel="stylesheet" href="{{asset('assets/css/page.css')}}">
 <link rel="stylesheet" href="{{asset('assets/css/libs.min.css')}}">
-<link rel="stylesheet" href="{{asset('libs/font-awesome/css/all.min.css')}}">
+<link rel="stylesheet" href="{{asset('assets/libs/font-awesome/css/all.min.css')}}">
 <!-- Header CSS (First Sections of Website: paste after release from _header.min.css here) -->
 <style></style>
 

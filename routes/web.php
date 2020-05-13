@@ -27,6 +27,12 @@ Route::patch('admin/posts/{id}/deactivate', 'PostsController@deactivate')->where
 Route::patch('admin/posts', 'PostsController@update')->name('post.update');
 Route::get('admin/posts/create', 'PostsController@create')->name('admin.posts.create');
 Route::post('admin/posts', 'PostsController@store')->name('posts.store');
+//Tags routes
+Route::get('admin/tags', 'TagsController@index')->name('tags.list');
+Route::get('admin/tags/create', 'TagsController@create')->name('tags.create');
+Route::post('admin/tags', 'TagsController@store')->name('tags.store');
+Route::delete('admin/tags/{id}/destroy', 'TagsController@destroy')->where('id', '[0-9]+')->name('tag.destroy');
+Route::delete('admin/tags/{id}/update', 'TagsController@update')->where('id', '[0-9]+')->name('tag.update');
 
 Route::view('admin', 'pages.admin');
 
