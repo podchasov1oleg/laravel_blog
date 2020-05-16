@@ -32,7 +32,7 @@ Route::get('admin/tags', 'TagsController@index')->name('tags.list');
 Route::get('admin/tags/create', 'TagsController@create')->name('tags.create');
 Route::post('admin/tags', 'TagsController@store')->name('tags.store');
 Route::delete('admin/tags/{id}/destroy', 'TagsController@destroy')->where('id', '[0-9]+')->name('tag.destroy');
-Route::delete('admin/tags/{id}/update', 'TagsController@update')->where('id', '[0-9]+')->name('tag.update');
+Route::patch('admin/tags/{id}/update', 'TagsController@update')->where('id', '[0-9]+')->name('tag.update');
 
 Route::view('admin', 'pages.admin');
 

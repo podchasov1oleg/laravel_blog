@@ -38,14 +38,12 @@
                                 <label for="exampleInputFile">Change post image</label>
                                 <div class="input-group">
                                     <div class="custom-file">
-                                        {{--TODO Заглушка под изображение--}}
                                         <input type="file" name="image" class="custom-file-input" id="exampleInputFile">
                                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-check">
-                                {{--TODO Заглушка под активность--}}
                                 <input type="checkbox" class="form-check-input" disabled id="exampleCheck1">
                                 <label class="form-check-label" for="exampleCheck1">Is active</label>
                             </div>

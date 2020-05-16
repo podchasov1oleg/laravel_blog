@@ -1,49 +1,10 @@
 @extends('layouts.admin')
 @section('content')
-    <?php
-        switch (session('action')) {
-            case 'activated':
-                if (session('success')) {
-                    $notice = 'activated successfully';
-                } else {
-                    $notice = 'not activated successfully';
-                }
-                break;
-            case 'deactivated':
-                if (session('success')) {
-                    $notice = 'deactivated successfully';
-                } else {
-                    $notice = 'not deactivated successfully';
-                }
-                break;
-            case 'added':
-                if (session('success')) {
-                    $notice = 'added successfully';
-                } else {
-                    $notice = 'not added successfully';
-                }
-                break;
-            case 'updated':
-                if (session('success')) {
-                    $notice = 'updated successfully';
-                } else {
-                    $notice = 'not updated successfully';
-                }
-                break;
-            case 'deleted':
-                if (session('success')) {
-                    $notice = 'deleted successfully';
-                } else {
-                    $notice = 'not deleted successfully';
-                }
-                break;
-        }
-    ?>
     <div class="row">
         <div class="col-12">
-            @if(!empty($notice))
+            @if(!empty(session('action')))
                 <div class="callout callout-info">
-                    <h5>The post was {{$notice}}</h5>
+                    <h5>The post was {{!session('success') ? 'not' : ''}} {{session('action')}} successfully.</h5>
                 </div>
             @endif
             <div class="card">
@@ -76,7 +37,6 @@
                                     <td>
                                         <a href="{{route('admin.posts.show', ['id' => $post->id])}}" class="btn btn-block btn-outline-info btn-sm">See more</a>
                                         <a href="{{route('posts.show', ['id' => $post->id])}}" class="btn btn-block btn-outline-primary btn-sm">See in public</a>
-                                        {{--TODO добавить сюда ссылку, когда будет маршрут--}}
                                         <button type="button" class="btn btn-block btn-outline-warning btn-sm" data-toggle="modal" data-target="#modal-danger{{$post->id}}">
                                             Delete Post
                                         </button>
