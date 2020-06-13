@@ -18,21 +18,27 @@ Route::get('/', function () {
 });
 //Public part
 Route::get('posts/{id}', 'PostsController@show')->name('posts.show');
+Route::get('posts', 'PostsController@index')->name('posts.list');
 //Admin routes, Posts resource
-Route::get('{admin?}posts', 'PostsController@index')->where(['admin' => 'admin/|'])->name('posts.list');
-Route::get('admin/posts/{id}', 'PostsController@show')->where('id', '[0-9]+')->name('admin.posts.show');
-Route::delete('admin/posts/{id}/destroy', 'PostsController@destroy')->where('id', '[0-9]+')->name('post.delete');
-Route::get('admin/posts/{id}/edit', 'PostsController@edit')->where('id', '[0-9]+')->name('post.edit');
-Route::patch('admin/posts/{id}/deactivate', 'PostsController@deactivate')->where('id', '[0-9]+')->name('post.deactivate');
-Route::patch('admin/posts', 'PostsController@update')->name('post.update');
-Route::get('admin/posts/create', 'PostsController@create')->name('admin.posts.create');
-Route::post('admin/posts', 'PostsController@store')->name('posts.store');
-//Tags routes
-Route::get('admin/tags', 'TagsController@index')->name('tags.list');
-Route::get('admin/tags/create', 'TagsController@create')->name('tags.create');
-Route::post('admin/tags', 'TagsController@store')->name('tags.store');
-Route::delete('admin/tags/{id}/destroy', 'TagsController@destroy')->where('id', '[0-9]+')->name('tag.destroy');
-Route::patch('admin/tags/{id}/update', 'TagsController@update')->where('id', '[0-9]+')->name('tag.update');
+Route::middleware(['auth'])->group(function () {
+    Route::get('admin/posts', 'PostsController@adminIndex')->name('admin.posts.list');
+    Route::get('admin/posts/{id}', 'PostsController@show')->where('id', '[0-9]+')->name('admin.posts.show');
+    Route::delete('admin/posts/{id}/destroy', 'PostsController@destroy')->where('id', '[0-9]+')->name('post.delete');
+    Route::get('admin/posts/{id}/edit', 'PostsController@edit')->where('id', '[0-9]+')->name('post.edit');
+    Route::patch('admin/posts/{id}/deactivate', 'PostsController@deactivate')->where('id', '[0-9]+')->name('post.deactivate');
+    Route::patch('admin/posts', 'PostsController@update')->name('post.update');
+    Route::get('admin/posts/create', 'PostsController@create')->name('admin.posts.create');
+    Route::post('admin/posts', 'PostsController@store')->name('posts.store');
+    //Tags routes
+    Route::get('admin/tags', 'TagsController@index')->name('tags.list');
+    Route::get('admin/tags/create', 'TagsController@create')->name('tags.create');
+    Route::post('admin/tags', 'TagsController@store')->name('tags.store');
+    Route::delete('admin/tags/{id}/destroy', 'TagsController@destroy')->where('id', '[0-9]+')->name('tag.destroy');
+    Route::patch('admin/tags/{id}/update', 'TagsController@update')->where('id', '[0-9]+')->name('tag.update');
+    //Index route
+    Route::view('admin', 'pages.admin');
+});
 
-Route::view('admin', 'pages.admin');
+Auth::routes();
 
+Route::get('/home', 'HomeController@index')->name('home');

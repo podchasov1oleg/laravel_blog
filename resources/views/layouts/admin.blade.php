@@ -174,7 +174,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{route('posts.list', ['admin' => 'admin/'])}}" class="nav-link {{ (\Route::currentRouteName() == 'posts.list') ? 'active' : '' }}">
+                                <a href="{{route('admin.posts.list')}}" class="nav-link {{ (\Route::currentRouteName() == 'admin.posts.list') ? 'active' : '' }}">
                                     <i class="fas fa-table nav-icon"></i>
                                     <p>All posts</p>
                                 </a>

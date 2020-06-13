@@ -23,7 +23,7 @@
                                 <textarea name="intro" class="form-control" rows="3" id="introInput" placeholder="Enter intro">{{$post->intro}}</textarea>
                             </div>
                             <div class="form-group">
-                                <label for="tag_select">Example multiple select</label>
+                                <label for="tag_select">Tag</label>
                                 <select name="tag_id" class="form-control" id="tag_select">
                                     @foreach($tags as $tag)
                                         <option {{$post->tag_id == $tag->id ? 'selected' : ''}} value="{{$tag->id}}">{{$tag->name}}</option>

@@ -12,6 +12,6 @@ $factory->define(Post::class, function (Faker $faker) {
         'body' => $faker->text,
         'image' => 'https://via.placeholder.com/795x447/ff7f7f/333333?text=' . $faker->word,
         'active' => 1,
-        'tag_id' => null
+        'tag_id' => $faker->numberBetween(1, 10)
     ];
 });

@@ -12,27 +12,32 @@ use Illuminate\Support\Facades\Storage;
 
 class PostsController extends Controller
 {
-    public function index($admin = '')
+    public function adminIndex()
     {
-        if ($admin) {
-            return view(
-                'pages.admin-posts',
-                [
-                    'posts' => DB::table('posts')
-                        ->join('tags', 'posts.tag_id', '=', 'tags.id')
-                        ->select('posts.*', 'tags.name')
-                        ->get()
-                ]
-            );
-        } else {
-            return view('pages.blog', ['posts' => DB::table('posts')
-                ->where('active', 1)
-                ->orderBy('title', 'asc')
-                ->join('tags', 'posts.tag_id', '=', 'tags.id')
-                ->select('posts.*', 'tags.name', 'tags.icon')
-                ->get()
-            ]);
-        }
+        return view(
+            'pages.admin-posts',
+            [
+                'posts' => DB::table('posts')
+                    ->join('tags', 'posts.tag_id', '=', 'tags.id')
+                    ->select('posts.*', 'tags.name')
+                    ->get()
+            ]
+        );
+    }
+
+    public function index()
+    {
+        return view(
+            'pages.blog',
+            [
+                'posts' => DB::table('posts')
+                    ->where('active', 1)
+                    ->orderBy('title', 'asc')
+                    ->join('tags', 'posts.tag_id', '=', 'tags.id')
+                    ->select('posts.*', 'tags.name', 'tags.icon')
+                    ->get()
+            ]
+        );
     }
 
     public function deactivate(Request $request)
