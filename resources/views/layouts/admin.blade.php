@@ -174,15 +174,38 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{route('posts.list', ['admin' => 'admin/'])}}" class="nav-link">
+                                <a href="{{route('posts.list', ['admin' => 'admin/'])}}" class="nav-link {{ (\Route::currentRouteName() == 'posts.list') ? 'active' : '' }}">
                                     <i class="fas fa-table nav-icon"></i>
                                     <p>All posts</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('admin.posts.create')}}" class="nav-link">
+                                <a href="{{route('admin.posts.create')}}" class="nav-link {{ (\Route::currentRouteName() == 'admin.posts.create') ? 'active' : '' }}">
                                     <i class="fas fa-plus nav-icon"></i>
                                     <p>New post</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-treeview menu-open">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-hashtag fa-lg"></i>
+                            <p>
+                                Post tags
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{route('tags.list')}}" class="nav-link {{ (\Route::currentRouteName() == 'tags.list') ? 'active' : '' }}">
+                                    <i class="fas fa-table nav-icon"></i>
+                                    <p>All tags</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('tags.create')}}" class="nav-link {{ (\Route::currentRouteName() == 'tags.create') ? 'active' : '' }}">
+                                    <i class="fas fa-plus nav-icon"></i>
+                                    <p>Create new tag</p>
                                 </a>
                             </li>
                         </ul>

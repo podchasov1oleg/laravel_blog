@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
@@ -13,9 +15,23 @@ class PostsController extends Controller
     public function index($admin = '')
     {
         if ($admin) {
-            return view('pages.admin-posts', ['posts' => Post::all()]);
+            return view(
+                'pages.admin-posts',
+                [
+                    'posts' => DB::table('posts')
+                        ->join('tags', 'posts.tag_id', '=', 'tags.id')
+                        ->select('posts.*', 'tags.name')
+                        ->get()
+                ]
+            );
         } else {
-            return view('pages.blog', ['posts' => Post::where('active', 1)->orderBy('title', 'asc')->get()]);
+            return view('pages.blog', ['posts' => DB::table('posts')
+                ->where('active', 1)
+                ->orderBy('title', 'asc')
+                ->join('tags', 'posts.tag_id', '=', 'tags.id')
+                ->select('posts.*', 'tags.name', 'tags.icon')
+                ->get()
+            ]);
         }
     }
 
@@ -75,7 +91,7 @@ class PostsController extends Controller
 
     public function edit($id)
     {
-        return view('pages.admin-edit', ['post' => Post::find($id)]);
+        return view('pages.admin-edit', ['post' => Post::find($id), 'tags' => Tag::all()]);
     }
 
     public function update(Request $request)
@@ -94,6 +110,7 @@ class PostsController extends Controller
 
         $post->title = $request->title;
         $post->intro = $request->intro;
+        $post->tag_id = $request->tag_id;
         $post->body = $request->body;
         $updated = $post->save();
         return redirect()

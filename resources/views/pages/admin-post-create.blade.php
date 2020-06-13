@@ -3,6 +3,15 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="card card-primary">
                     <div class="card-header">
                         <h3 class="card-title">Post create form</h3>
@@ -30,7 +39,6 @@
                                 <label for="exampleInputFile">Image for post (795*448px)</label>
                                 <div class="input-group">
                                     <div class="custom-file">
-                                        {{--TODO Реализовать--}}
                                         <input type="file" name="image" class="custom-file-input" id="exampleInputFile">
                                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                     </div>
@@ -40,7 +48,6 @@
                                 </div>
                             </div>
                             <div class="form-check">
-                                {{--TODO Реализовать--}}
                                 <input type="checkbox" class="form-check-input" disabled id="exampleCheck1">
                                 <label class="form-check-label" for="exampleCheck1">Is active</label>
                             </div>

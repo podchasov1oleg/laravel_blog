@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Post;
 use App\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
@@ -16,18 +17,33 @@ class TagsController extends Controller
         return view('pages.admin-tags', ['tags' => Tag::all()]);
     }
 
+    private function saveImage(UploadedFile $file)
+    {
+        $name = $file->getClientOriginalName();
+        $path = '/storage/' . $name;
+        if ($file->getClientOriginalExtension() != 'svg') {
+            $resize_image = Image::make($file->getRealPath());
+            $resize_image->resize(30, 30, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(storage_path('app/public') . '/' . $name);
+        } else {
+            Storage::disk('public')->put($name, File::get($file));
+        }
+        return $path;
+    }
+
     public function store(Request $request)
     {
+        //TODO прикрутить валидацию на контроллер постов
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'name' => 'required|max:255'
+        ]);
+
         $tag = new Tag;
-        if ($request->image) {
-            $file = $request->file('image');
-            $path = $file->getClientOriginalName();
-            if (Storage::disk('public')->exists($path)) {
-                $path = '_.' . $file->getClientOriginalName();
-            }
-            Storage::disk('public')->put($path, File::get($file));
-            $tag->icon = 'storage/' . $path;
-        }
+
+        $path = $this->saveImage($request->file('image'));
+        $tag->icon = $path;
 
         $tag->name = $request->name;
         $saved = $tag->save();
@@ -57,18 +73,9 @@ class TagsController extends Controller
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
         $tag = Tag::find($request->route()->parameter('id'));
+
         if ($request->image) {
-            $file = $request->file('image');
-            $name = $file->getClientOriginalName();
-            $path = '/storage/' . $name;
-            if ($file->getClientOriginalExtension() != 'svg') {
-                $resize_image = Image::make($file->getRealPath());
-                $resize_image->resize(30, 30, function ($constraint) {
-                    $constraint->aspectRatio();
-                })->save(storage_path() . $name);
-            } else {
-                Storage::disk('public')->put($name, File::get($file));
-            }
+            $path = $this->saveImage($request->file('image'));
             $tag->icon = $path;
         }
 

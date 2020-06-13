@@ -23,6 +23,14 @@
                                 <textarea name="intro" class="form-control" rows="3" id="introInput" placeholder="Enter intro">{{$post->intro}}</textarea>
                             </div>
                             <div class="form-group">
+                                <label for="tag_select">Example multiple select</label>
+                                <select name="tag_id" class="form-control" id="tag_select">
+                                    @foreach($tags as $tag)
+                                        <option {{$post->tag_id == $tag->id ? 'selected' : ''}} value="{{$tag->id}}">{{$tag->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <div class="mb-3">
                                     <label for="textarea">Post body</label>
                                     <textarea id="textarea" name="body" class="textarea" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{$post->body}}</textarea>
