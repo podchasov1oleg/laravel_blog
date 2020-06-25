@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <title>Dashboard</title>
+    <title>@yield('title') - Web is my shepherd</title>
 
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="{{asset("assets/admin/plugins/fontawesome-free/css/all.min.css")}}">
@@ -155,7 +155,10 @@
                     <img src="{{asset("assets/admin/dist/img/user2-160x160.jpg")}}" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block">Admin</a>
+                    <form action="{{url('/logout')}}" method="post">
+                        @csrf
+                        <button type="submit" class="btn btn-secondary">Logout</button>
+                    </form>
                 </div>
             </div>
 
