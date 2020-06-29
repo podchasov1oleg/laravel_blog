@@ -48,10 +48,9 @@ class PostsController extends Controller
         } elseif ($request->active == 'deactivated') {
             $post->active = 0;
         }
-        $updated = $post->save();
         return redirect()
-            ->action('PostsController@index', ['admin' => 'admin/'])
-            ->with(['action' => $request->active, 'success' => $updated]);
+            ->action('PostsController@adminIndex')
+            ->with(['action' => $request->active, 'success' => $post->save()]);
     }
 
     public function store(Request $request)
@@ -73,10 +72,9 @@ class PostsController extends Controller
         $post->title = $request->title;
         $post->intro = $request->title;
         $post->body = $request->body;
-        $saved = $post->save();
         return redirect()
-            ->action('PostsController@index', ['admin' => 'admin/'])
-            ->with(['action' => 'added', 'success' => $saved]);
+            ->action('PostsController@adminIndex')
+            ->with(['action' => 'added', 'success' => $post->save()]);
     }
 
     public function create()
@@ -117,18 +115,16 @@ class PostsController extends Controller
         $post->intro = $request->intro;
         $post->tag_id = $request->tag_id;
         $post->body = $request->body;
-        $updated = $post->save();
         return redirect()
-            ->action('PostsController@index', ['admin' => 'admin/'])
-            ->with(['action' => 'updated', 'success' => $updated]);
+            ->action('PostsController@adminIndex')
+            ->with(['action' => 'updated', 'success' => $post->save()]);
     }
 
     public function destroy($id)
     {
         $post = Post::find($id);
-        $deleted = $post->delete();
         return redirect()
-            ->action('PostsController@index', ['admin' => 'admin/'])
-            ->with(['action' => 'deleted', 'success' => $deleted]);
+            ->action('PostsController@adminIndex')
+            ->with(['action' => 'deleted', 'success' => $post->delete()]);
     }
 }

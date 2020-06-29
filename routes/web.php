@@ -17,10 +17,22 @@ Route::get('/', function () {
     return view('pages.index', ['page' => 'main']);
 });
 //Public part
-Route::get('posts/{id}', 'PostsController@show')->name('posts.show');
+//Posts
+Route::get('posts/{id}', 'PostsController@show')->where('id', '[0-9]+')->name('posts.show');
 Route::get('posts', 'PostsController@index')->name('posts.list');
+//Portfolio
+Route::get('portfolio', 'PortfolioController@index')->name('portfolio.list');
+Route::get('portfolio/{id}', 'PortfolioController@show')->where('id', '[0-9]+')->name('portfolio.show');
 //Admin routes, Posts resource
 Route::middleware(['auth'])->group(function () {
+    //Portfolio routes
+    Route::get('admin/portfolio/create', 'PortfolioController@create')->name('portfolio.create');
+    Route::get('admin/portfolio', 'PortfolioController@indexAdmin')->name('portfolio.admin.list');
+    Route::post('admin/portfolio', 'PortfolioController@store')->name('portfolio.store');
+    Route::get('admin/portfolio/{id}/edit', 'PortfolioController@edit')->where('id', '[0-9]+')->name('portfolio.edit');
+    Route::patch('admin/portfolio/{id}', 'PortfolioController@update')->where('id', '[0-9]+');
+    Route::delete('admin/portfolio/{id}', 'PortfolioController@destroy')->where('id', '[0-9]+');
+    //Posts routes
     Route::get('admin/posts', 'PostsController@adminIndex')->name('admin.posts.list');
     Route::get('admin/posts/{id}', 'PostsController@show')->where('id', '[0-9]+')->name('admin.posts.show');
     Route::delete('admin/posts/{id}/destroy', 'PostsController@destroy')->where('id', '[0-9]+')->name('post.delete');
