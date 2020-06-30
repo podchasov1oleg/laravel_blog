@@ -28,15 +28,14 @@ class PortfolioController extends Controller
 
     public function index()
     {
+        $collection = Portfolio::all();
+        foreach ($collection as $item) {
+            $item->image = $item->images->first()->src ?? 'https://via.placeholder.com/825x464/ff7f7f/333333?text=No+Image+Founded';
+        }
         return view(
             'pages.portfolio',
             [
-                'portfolios' => DB::table('portfolios')
-                    ->where('active', 1)
-                    ->orderBy('title', 'asc')
-                    ->join('portfolio_images', 'portfolios.id', '=', 'portfolio_images.portfolio_id')
-                    ->select('portfolios.*', 'portfolio_images.src')
-                    ->get()
+                'portfolios' => $collection
             ]
         );
     }

@@ -301,3 +301,50 @@ footer {
 /* Large Devices, Wide Screens */
 @media only screen and (min-width: 1200px) {
   /**/ }
+
+section.portfolio {
+  background-color: #F4F3EB; }
+  section.portfolio .portfolio-item {
+    -webkit-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    border: 1px solid #D3D3D3;
+    border-radius: 10px 10px 0 0;
+    margin-bottom: 20px; }
+    section.portfolio .portfolio-item .item-img img {
+      width: 100%;
+      border-radius: 9px 9px 0 0; }
+    section.portfolio .portfolio-item .item-caption {
+      padding: 0 15px 10px; }
+      section.portfolio .portfolio-item .item-caption p {
+        text-align: justify; }
+    section.portfolio .portfolio-item:hover {
+      border-color: #f95a37; }
+      section.portfolio .portfolio-item:hover .item-header {
+        color: #f95a37; }
+
+.portfolio-img-slider .slick-dots {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin: 0;
+  padding: .25rem 0;
+  list-style-type: none; }
+  .portfolio-img-slider .slick-dots li {
+    margin: 0 0.25rem; }
+    .portfolio-img-slider .slick-dots li.slick-active button {
+      background-color: #f95a37; }
+  .portfolio-img-slider .slick-dots button {
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    padding: 0;
+    border: none;
+    border-radius: 100%;
+    background-color: #D3D3D3;
+    text-indent: -9999px; }

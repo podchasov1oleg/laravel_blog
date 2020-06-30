@@ -51,7 +51,10 @@
 .news-detail p {
   text-align: justify;
   text-indent: 10px;
-  font-size: .9em; }
+  font-size: 1em; }
+  @media only screen and (max-width: 768px) {
+    .news-detail p {
+      font-size: 1.2em; } }
 
 h1.inner-h1, h2 {
   padding-left: 0; }
