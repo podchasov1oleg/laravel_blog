@@ -15,20 +15,17 @@ class PortfolioController extends Controller
 
     public function indexAdmin()
     {
-        return view(
+        return view(//TODO переписать в соответствии с index
             'pages.admin-portfolio',
             [
-                'portfolios' => DB::table('portfolios')
-                    ->join('portfolio_images', 'portfolios.id', '=', 'portfolio_images.portfolio_id')
-                    ->select('portfolios.*', 'portfolio_images.src')
-                    ->get()
+                'portfolios' => Portfolio::all()
             ]
         );
     }
 
     public function index()
     {
-        $collection = Portfolio::all();
+        $collection = Portfolio::where('active', 1)->get();
         foreach ($collection as $item) {
             $item->image = $item->images->first()->src ?? 'https://via.placeholder.com/825x464/ff7f7f/333333?text=No+Image+Founded';
         }
@@ -64,7 +61,7 @@ class PortfolioController extends Controller
             'pages.portfolio-item',
             [
                 'portfolio' => Portfolio::find($id),
-                'images' => PortfolioImage::where('portfolio_id', '=', $id)->firstOrFail()
+                'images' => PortfolioImage::where('portfolio_id', '=', $id)->get()
             ]
         );
     }

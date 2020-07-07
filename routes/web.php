@@ -30,8 +30,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('admin/portfolio', 'PortfolioController@indexAdmin')->name('portfolio.admin.list');
     Route::post('admin/portfolio', 'PortfolioController@store')->name('portfolio.store');
     Route::get('admin/portfolio/{id}/edit', 'PortfolioController@edit')->where('id', '[0-9]+')->name('portfolio.edit');
-    Route::patch('admin/portfolio/{id}', 'PortfolioController@update')->where('id', '[0-9]+');
-    Route::delete('admin/portfolio/{id}', 'PortfolioController@destroy')->where('id', '[0-9]+');
+    Route::patch('admin/portfolio/{id}', 'PortfolioController@update')->where('id', '[0-9]+')->name('portfolio.edit');
+    Route::delete('admin/portfolio/{id}', 'PortfolioController@destroy')->where('id', '[0-9]+')->name('portfolio.delete');
     //Posts routes
     Route::get('admin/posts', 'PostsController@adminIndex')->name('admin.posts.list');
     Route::get('admin/posts/{id}', 'PostsController@show')->where('id', '[0-9]+')->name('admin.posts.show');

@@ -56,5 +56,12 @@ $(document).ready(function() {
             }
           }
         ]
-      });
+    });
+    $(".portfolio-img-slider").slick({
+        dots: true,
+        infinite: false,
+        arrows: false,
+        autoplay: true,
+        autoplaySpeed: 3000,
+    });
 });
