@@ -10,7 +10,7 @@
                     <div class="portfolio-img-slider">
                         @foreach($images as $image)
                         <div class="news-item detail">
-                            <img src="{{$image->src}}" alt="{{$image->src}}">
+                            <img src="{{asset($image->src)}}" alt="{{$image->src}}">
                         </div>
                         @endforeach
                     </div>

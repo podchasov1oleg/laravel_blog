@@ -1,4 +1,5 @@
 @extends('layouts.admin')
+@section('title', 'Portfolio List')
 @section('content')
     <div class="row">
         <div class="col-12">
@@ -32,6 +33,7 @@
                                     <td style="max-width: 100px; overflow: hidden">{{$portfolio->created_at ?? "-"}}</td>
                                     <td>
                                         <a href="{{route('portfolio.show', ['id' => $portfolio->id])}}" class="btn btn-block btn-outline-primary btn-sm">See in public</a>
+                                        <a href="{{route('portfolio.edit', ['id' => $portfolio->id])}}" class="btn btn-block btn-outline-secondary btn-sm">Edit</a>
                                         <button type="button" class="btn btn-block btn-outline-warning btn-sm" data-toggle="modal" data-target="#modal-danger{{$portfolio->id}}">
                                             Delete portfolio
                                         </button>

@@ -71,25 +71,36 @@ class PortfolioController extends Controller
         return view(
             'pages.portfolio-edit',
             [
-                'item' => Portfolio::find($id),
-                'images' => PortfolioImage::where('portfolio_id', '=', $id)->firstOrFail()
+                'portfolio' => Portfolio::find($id),
+                'images' => PortfolioImage::where('portfolio_id', '=', $id)->get()
             ]
         );
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $item = Portfolio::find($id);
-
-        //TODO метод для изображений
-
-        $item->title = $request->title;
-        $item->intro = $request->intro;
-        $item->body = $request->body;
-        $item->active = $request->active;
+        $portfolio = Portfolio::find($request->id);
+        foreach ($request->all() as $key => $item) {
+            if (strpos($key, 'image') !== false) {
+                $file = $request->file($key);
+                $path = $file->getClientOriginalName();
+                if (Storage::disk('public')->exists($path)) {
+                    $path = '_.' . $file->getClientOriginalName();
+                }
+                Storage::disk('public')->put($path, File::get($file));
+                $image = new PortfolioImage();
+                $image->portfolio_id = $request->id;
+                $image->src = 'storage/' . $path;
+                $image->save(); //TODO обработать, если не получилось
+            }
+        }
+        $portfolio->title = $request->title;
+        $portfolio->intro = $request->intro;
+        $portfolio->body = $request->body;
+        $portfolio->active = $request->active ? 1 : 0;
         return redirect()
             ->action('PortfolioController@indexAdmin')
-            ->with(['action' => 'updated', 'success' => $item->save()]);
+            ->with(['action' => 'updated', 'success' => $portfolio->save()]);
     }
 
     public function destroy($id)
