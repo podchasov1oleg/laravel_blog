@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\Portfolio;
 use App\PortfolioImage;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 
 class PortfolioController extends Controller
@@ -39,20 +37,39 @@ class PortfolioController extends Controller
 
     public function create()
     {
-        return view('pages.admin-portfolio-create');
+        return view('pages.portfolio-create');
+    }
+
+    private function savePortfolioImage($file, $portfolio_id)
+    {
+        $path = $file->getClientOriginalName();
+        if (Storage::disk('public')->exists($path)) {
+            $path = '_.' . $file->getClientOriginalName();
+        }
+        Storage::disk('public')->put($path, File::get($file));
+        $image = new PortfolioImage();
+        $image->portfolio_id = $portfolio_id;
+        $image->src = 'storage/' . $path;
+        $image->save(); //TODO обработать, если не получилось
     }
 
     public function store(Request $request)
     {
         $portfolio = new Portfolio;
-        //TODO написать метод получения изображений с учетом того, что их может быть много
-        $portfolio->title = $request->title;
-        $portfolio->intro = $request->intro;
-        $portfolio->body = $request->body;
-        $portfolio->active = $request->active;
+        $portfolio->title = $request->input('title');
+        $portfolio->intro = $request->input('intro');
+        $portfolio->body = $request->input('body');
+        $portfolio->active = $request->input('active') ?? 0;
+        $saved = $portfolio->save();
+        foreach ($request->all() as $key => $value) {
+            if (strpos($key, 'image') !== false) {
+                $file = $request->file($key);
+                $this->savePortfolioImage($file, $portfolio->id);
+            }
+        }
         return redirect()
             ->action('PortfolioController@indexAdmin')
-            ->with(['action' => 'added', 'success' => $portfolio->save()]);
+            ->with(['action' => 'added', 'success' => $saved]);
     }
 
     public function show($id)
@@ -79,34 +96,29 @@ class PortfolioController extends Controller
 
     public function update(Request $request)
     {
-        $portfolio = Portfolio::find($request->id);
+        $portfolio = Portfolio::find($request->input('id'));
+        $file = $request->file('image1');
+        $this->savePortfolioImage($file, $request->input('id'));
         foreach ($request->all() as $key => $item) {
-            if (strpos($key, 'image') !== false) {
-                $file = $request->file($key);
-                $path = $file->getClientOriginalName();
-                if (Storage::disk('public')->exists($path)) {
-                    $path = '_.' . $file->getClientOriginalName();
-                }
-                Storage::disk('public')->put($path, File::get($file));
-                $image = new PortfolioImage();
-                $image->portfolio_id = $request->id;
-                $image->src = 'storage/' . $path;
-                $image->save(); //TODO обработать, если не получилось
+            if (strpos($key, 'delete-img') !== false) {
+                $image = PortfolioImage::find($item);
+                unlink($image->src);
+                $image->delete(); //TODO обработать, если не получилось
             }
         }
-        $portfolio->title = $request->title;
-        $portfolio->intro = $request->intro;
-        $portfolio->body = $request->body;
-        $portfolio->active = $request->active ? 1 : 0;
+        $portfolio->title = $request->input('title');
+        $portfolio->intro = $request->input('intro');
+        $portfolio->body = $request->input('body');
+        $portfolio->active = $request->input('active') ?? 0;
         return redirect()
             ->action('PortfolioController@indexAdmin')
             ->with(['action' => 'updated', 'success' => $portfolio->save()]);
     }
 
-    public function destroy($id)
+    public function destroy(Request $request)
     {
         return redirect()
             ->action('PortfolioController@indexAdmin')
-            ->with(['action' => 'deleted', 'success' => Portfolio::find($id)->delete()]);
+            ->with(['action' => 'deleted', 'success' => Portfolio::find($request->get('id'))->delete()]);
     }
 }

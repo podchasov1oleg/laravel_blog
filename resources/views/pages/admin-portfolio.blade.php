@@ -59,7 +59,7 @@
                         </button>
                     </div>
                     <div class="modal-footer justify-content-between">
-                        <form action="{{route('portfolio.delete', ['id' => $portfolio->id])}}" method="portfolio">
+                        <form action="{{route('portfolio.delete', ['id' => $portfolio->id])}}" method="post">
                             @method('DELETE')
                             @csrf
                             <button type="button" class="btn btn-outline-success" data-dismiss="modal">Cancel</button>

@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 //Main page
 Route::get('/', function () {
     return view('pages.index', ['page' => 'main']);
-});
+})->name('public');
 //Public part
 //Posts
 Route::get('posts/{id}', 'PostsController@show')->where('id', '[0-9]+')->name('posts.show');

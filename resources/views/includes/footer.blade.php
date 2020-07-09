@@ -1,4 +1,4 @@
-<section class="social bg-orange">
+<section class="social bg-orange" id="contact">
     <h3>Мы в соцсетях</h3>
     <div class="container">
         <div class="row">
