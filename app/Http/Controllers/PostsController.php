@@ -35,7 +35,14 @@ class PostsController extends Controller
                     ->orderBy('title', 'asc')
                     ->join('tags', 'posts.tag_id', '=', 'tags.id')
                     ->select('posts.*', 'tags.name', 'tags.icon')
-                    ->get()
+                    ->get(),
+                'tags' => DB::table('tags')
+                    ->select('tags.id', 'tags.name', 'tags.icon')
+                    ->distinct()
+                    ->leftJoin('posts', 'tags.id', '=', 'posts.tag_id')
+                    ->whereNotNull('posts.id')
+                    ->orderBy('tags.id')
+                    ->get(),
             ]
         );
     }

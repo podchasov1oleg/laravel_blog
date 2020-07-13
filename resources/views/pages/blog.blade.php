@@ -3,7 +3,7 @@
     <section class="news-sect bg-light">
         <div class="container">
             <h1 class="inner-h1">Блог программиста</h1>
-            <h2>Последние статьи</h2>
+            <h2>{{$title ?? "Последние статьи"}}</h2>
             <div class="row">
                 <div class="col-lg-9 news-list">
                     <div class="container">

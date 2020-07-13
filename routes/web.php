@@ -20,6 +20,7 @@ Route::get('/', function () {
 //Posts
 Route::get('posts/{id}', 'PostsController@show')->where('id', '[0-9]+')->name('posts.show');
 Route::get('posts', 'PostsController@index')->name('posts.list');
+Route::get('posts/{tag}', 'TagsController@section')->where('tag', '[a-z]+')->name('posts.section');
 //Portfolio
 Route::get('portfolio', 'PortfolioController@index')->name('portfolio.list');
 Route::get('portfolio/{id}', 'PortfolioController@show')->where('id', '[0-9]+')->name('portfolio.show');

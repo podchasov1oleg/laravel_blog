@@ -6,6 +6,7 @@ use App\Post;
 use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
@@ -15,6 +16,24 @@ class TagsController extends Controller
     public function index()
     {
         return view('pages.admin-tags', ['tags' => Tag::all()]);
+    }
+
+    public function section($section)
+    {
+        $id = Tag::where('name', '=', $section)->first()->id;
+        return view('pages.blog',
+            [
+                'posts' => Tag::find($id)->posts,
+                'tags' => DB::table('tags')
+                    ->select('tags.id', 'tags.name', 'tags.icon')
+                    ->distinct()
+                    ->leftJoin('posts', 'tags.id', '=', 'posts.tag_id')
+                    ->whereNotNull('posts.id')
+                    ->orderBy('tags.id')
+                    ->get(),
+                'title' => $section
+            ]
+        );
     }
 
     private function saveImage(UploadedFile $file)
