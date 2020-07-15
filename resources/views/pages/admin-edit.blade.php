@@ -1,11 +1,12 @@
 @extends('layouts.admin')
+@section('title', 'Редактирование поста')
 @section('content')
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">Post create form</h3>
+                        <h3 class="card-title">Post edit form</h3>
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->

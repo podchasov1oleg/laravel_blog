@@ -11,18 +11,18 @@
                     <span class="sr-only">(current)</span>
                 @endif
             </a>
-            <a class="nav-item nav-link {{(\Route::currentRouteName() == 'portfolio.list') ? 'active' : ''}}" href="{{route('portfolio.list')}}">
+            <a class="nav-item nav-link {{(\Route::currentRouteName() == 'portfolio.list' || request()->is('portfolio*')) ? 'active' : ''}}" href="{{route('portfolio.list')}}">
                 Портфолио
-                @if(\Route::currentRouteName() == 'portfolio.list')
+                @if(\Route::currentRouteName() == 'portfolio.list' || request()->is('portfolio*'))
                     <span class="sr-only">(current)</span>
                 @endif
             </a>
             {{--<a class="nav-item nav-link {{(\Route::currentRouteName() == 'public') ? 'active' : ''}}" href="{{route('public')}}">
                 Услуги {{(\Route::currentRouteName() == 'public') ? '<span class="sr-only">(current)</span>' : ''}}
             </a>--}}
-            <a class="nav-item nav-link {{(\Route::currentRouteName() == 'posts.list') ? 'active' : ''}}" href="{{route('posts.list')}}">
+            <a class="nav-item nav-link {{(\Route::currentRouteName() == 'posts.list' || request()->is('posts*')) ? 'active' : ''}}" href="{{route('posts.list')}}">
                 Блог
-                @if(\Route::currentRouteName() == 'posts.list')
+                @if(\Route::currentRouteName() == 'posts.list' || request()->is('posts*'))
                     <span class="sr-only">(current)</span>
                 @endif
             </a>

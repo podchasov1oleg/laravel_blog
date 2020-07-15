@@ -36,13 +36,7 @@ class PostsController extends Controller
                     ->join('tags', 'posts.tag_id', '=', 'tags.id')
                     ->select('posts.*', 'tags.name', 'tags.icon')
                     ->get(),
-                'tags' => DB::table('tags')
-                    ->select('tags.id', 'tags.name', 'tags.icon')
-                    ->distinct()
-                    ->leftJoin('posts', 'tags.id', '=', 'posts.tag_id')
-                    ->whereNotNull('posts.id')
-                    ->orderBy('tags.id')
-                    ->get(),
+                'tags' => Tag::activeTags(),
             ]
         );
     }
@@ -95,7 +89,10 @@ class PostsController extends Controller
         if (Route::currentRouteName() == 'admin.posts.show') {
             return view('pages.admin-detail', ['post' => Post::find($id)]);
         } else {
-            return view('pages.detail', ['post' => Post::find($id)]);
+            return view('pages.detail', [
+                'post' => Post::find($id),
+                'tags' => Tag::activeTags()
+            ]);
         }
     }
 

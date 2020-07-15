@@ -1,4 +1,5 @@
 @extends('layouts.default')
+@section('title', 'Главная')
 @section('content')
 
     <section class="portfolio-list bg-light">

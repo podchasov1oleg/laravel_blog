@@ -1,4 +1,5 @@
 @extends('layouts.default')
+@section('title', 'Блог')
 @section('content')
     <section class="news-sect bg-light">
         <div class="container">
@@ -20,7 +21,7 @@
                                                     <img src="{{asset($post->icon)}}" class="{{stripos($post->icon, 'svg') ? 'svg' : ''}}" alt="">
                                                 @endisset
                                                 {{--TODO добавить ссылку на раздел с тегом--}}
-                                                <a href="#">{{$post->name}}</a>
+                                                <a href="{{route('posts.section', ['tag' => $post->name])}}">{{$post->name}}</a>
                                             </div>
                                         @endisset
                                         <h4 class="bg-orange">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Portfolio;
 use App\PortfolioImage;
+use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -30,7 +31,8 @@ class PortfolioController extends Controller
         return view(
             'pages.portfolio',
             [
-                'portfolios' => $collection
+                'portfolios' => $collection,
+                'title' => 'Портфолио'
             ]
         );
     }
@@ -74,11 +76,14 @@ class PortfolioController extends Controller
 
     public function show($id)
     {
+        $item = Portfolio::find($id);
         return view(
             'pages.portfolio-item',
             [
-                'portfolio' => Portfolio::find($id),
-                'images' => PortfolioImage::where('portfolio_id', '=', $id)->get()
+                'portfolio' => $item,
+                'images' => PortfolioImage::where('portfolio_id', '=', $id)->get(),
+                'tags' => Tag::activeTags(),
+                'title' => $item->title
             ]
         );
     }

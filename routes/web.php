@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 //Main page
 Route::get('/', function () {
-    return view('pages.index', ['page' => 'main']);
+    return view('pages.index', ['page' => 'main', 'title' => 'Главная']);
 })->name('public');
 //Public part
 //Posts

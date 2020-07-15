@@ -3,7 +3,7 @@
         <h4>Теги</h4>
         <hr class="separator">
         @foreach($tags as $tag)
-            <a href="{{route('posts.section', ['tag' => $tag->name])}}" class="menu-item">
+            <a href="{{route('posts.section', ['tag' => $tag->name])}}" class="menu-item {{(request()->segment(2) == $tag->name) ? 'active' : ''}}">
                 <img src="{{$tag->icon}}" alt="{{$tag->name}}" class="svg">
                 {{$tag->name}}
             </a>

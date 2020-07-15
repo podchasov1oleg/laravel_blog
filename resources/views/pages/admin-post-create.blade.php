@@ -1,4 +1,5 @@
 @extends('layouts.admin')
+@section('title', "Создание поста")
 @section('content')
     <div class="container-fluid">
         <div class="row">

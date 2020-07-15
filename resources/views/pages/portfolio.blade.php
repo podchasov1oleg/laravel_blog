@@ -1,5 +1,4 @@
 @extends('layouts.default')
-@section('title', 'Портфолио')
 @section('content')
     <section class="portfolio bg-light">
         <div class="container">
