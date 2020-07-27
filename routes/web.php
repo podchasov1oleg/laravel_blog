@@ -24,7 +24,7 @@ Route::get('posts/{tag}', 'TagsController@section')->where('tag', '[a-z]+')->nam
 //Portfolio
 Route::get('portfolio', 'PortfolioController@index')->name('portfolio.list');
 Route::get('portfolio/{id}', 'PortfolioController@show')->where('id', '[0-9]+')->name('portfolio.show');
-//Admin routes, Posts resource
+//Admin routes
 Route::middleware(['auth'])->group(function () {
     //Portfolio routes
     Route::get('admin/portfolio/create', 'PortfolioController@create')->name('portfolio.create');
@@ -55,3 +55,4 @@ Route::middleware(['auth'])->group(function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/form/send', 'FormsController@index')->name('form.contact');

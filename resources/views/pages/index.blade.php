@@ -1,7 +1,9 @@
 @extends('layouts.default')
 @section('title', 'Главная')
 @section('content')
-
+    @if(!empty(session('response')))
+        @dump(session('response'))
+    @endif
     <section class="portfolio-list bg-light">
         <h3>Портфолио</h3>
         <div class="container">
@@ -109,7 +111,8 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8">
-                    <form action="" class="contact-form">
+                    <form method="post" action="{{route('form.contact')}}" class="contact-form">
+                        @csrf
                         <div class="name-field">
                             <label for="name">Имя</label>
                             <input type="text" name="USER_NAME" placeholder="Введите ваше имя" id="name">
@@ -120,7 +123,7 @@
                         </div>
                         <div class="mess-field">
                             <label for="text_mess">Сообщение</label>
-                            <textarea name="MESSAGE" placeholder="Введите сообщение" id="text_mess" cols="30" rows="3"></textarea>
+                            <textarea name="USER_MESSAGE" placeholder="Введите сообщение" id="text_mess" cols="30" rows="3"></textarea>
                         </div>
                         <button type="submit" class="button">Отправить</button>
                     </form>

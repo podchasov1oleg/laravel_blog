@@ -81,7 +81,7 @@ section {
   .portfolio-list .portfolio-item .button {
     position: absolute;
     top: 15%;
-    left: 12%;
+    left: 10%;
     visibility: hidden;
     opacity: 0;
     -webkit-transition: visibility 0s, opacity 0.5s linear;
@@ -214,8 +214,25 @@ footer {
     margin-left: 0;
     width: 94%; } }
 
+@media (max-width: 1200px) and (min-width: 1024px) {
+    .portfolio-list .portfolio-item .button {
+        top: 8%;
+        left: 2%;
+    }
+}
+
+@media (max-width: 1024px) and (min-width: 992px) {
+    .portfolio-list .portfolio-item .button {
+        top: 25%;
+        left: 27%;
+    }
+}
+
 /* Medium Devices, Desktops */
 @media only screen and (max-width: 992px) {
+    .portfolio-list .portfolio-item .button {
+        left: 19%;
+    }
   .navbar-expand-md .navbar-nav .nav-link {
     padding: 1.5rem 0.25rem; }
   a.logo, span.logo {

@@ -12,9 +12,13 @@
 </head>
 
 <body>
-@if(@isset($page) == 'main')
+@if($page == 'main')
 
     @include('includes.header-main')
+
+@elseif($page == 'form')
+
+    @include('includes.header-form')
 
 @else
 
@@ -24,7 +28,7 @@
 
 <div id="main-content">
 
-    @yield('content')
+@yield('content')
 
 </div>
 
