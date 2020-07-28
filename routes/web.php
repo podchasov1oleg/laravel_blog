@@ -14,7 +14,18 @@ use Illuminate\Support\Facades\Route;
 */
 //Main page
 Route::get('/', function () {
-    return view('pages.index', ['page' => 'main', 'title' => 'Главная']);
+    return view('pages.index', [
+        'page' => 'main',
+        'title' => 'Главная',
+        'portfolios' => \App\Portfolio::where('active', 1)
+            ->orderBy('created_at', 'desc')
+            ->take(4)
+            ->get(),
+        'posts' => \App\Post::where('active', 1)
+            ->orderBy('created_at', 'desc')
+            ->take(4)
+            ->get(),
+    ]);
 })->name('public');
 //Public part
 //Posts

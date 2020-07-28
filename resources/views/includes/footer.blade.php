@@ -1,4 +1,4 @@
-@if($page != 'form')
+@if(!empty($page) && $page != 'form')
 
     @include('includes.social')
 

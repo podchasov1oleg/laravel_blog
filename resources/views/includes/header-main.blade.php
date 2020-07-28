@@ -24,10 +24,9 @@
     <div class="container">
         <div class="row justify-content-end">
             <div class="col-md-5 heading">
-                <h1>Создание и техническая поддержка сайтов</h1>
-                <h2>Расскажите о сайте вашей мечты
-                    и мы поможем ей осуществиться</h2>
-                <a href="#" class="button">Рассказать</a>
+                <h1>Блог бекэнд разработчика</h1>
+                <h2>Предложите интересующую тему для исследования и мы ей займемся</h2>
+                <a href="#contact" class="button">Предложить</a>
             </div>
         </div>
     </div>

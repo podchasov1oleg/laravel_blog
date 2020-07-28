@@ -18,7 +18,7 @@
                                         @isset($post->name)
                                             <div class="tag">
                                                 @isset($post->icon)
-                                                    <img src="{{asset($post->icon)}}" class="{{stripos($post->icon, 'svg') ? 'svg' : ''}}" alt="">
+                                                    <img src="{{asset($post->icon)}}" class="{{stripos($post->icon, '.svg') ? 'svg' : ''}}" alt="">
                                                 @endisset
                                                 {{--TODO добавить ссылку на раздел с тегом--}}
                                                 <a href="{{route('posts.section', ['tag' => $post->name])}}">{{$post->name}}</a>

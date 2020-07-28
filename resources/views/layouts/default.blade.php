@@ -12,11 +12,11 @@
 </head>
 
 <body>
-@if($page == 'main')
+@if(!empty($page) && $page == 'main')
 
     @include('includes.header-main')
 
-@elseif($page == 'form')
+@elseif(!empty($page) && $page == 'form')
 
     @include('includes.header-form')
 

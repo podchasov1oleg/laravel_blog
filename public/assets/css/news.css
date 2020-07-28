@@ -70,6 +70,9 @@ h2 {
 .news-item img {
     width: 100%;
     border-radius: 10px 10px 0 0; }
+.news-item .tag img {
+    width: inherit;
+}
 .news-item.first {
     min-height: 530px; }
 .news-item h4 {

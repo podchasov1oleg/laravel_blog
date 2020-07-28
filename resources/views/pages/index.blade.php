@@ -8,59 +8,31 @@
         <h3>Портфолио</h3>
         <div class="container">
             <div class="my-slider-portfolio">
-                <div class="col-md-3">
-                    <div class="portfolio-item">
-                        <img class="portfolio-img" src="https://via.placeholder.com/255x190" alt="">
-                        <a href="#" class="button">
-                            К портфолио
-                        </a>
-                        <a href="#" class="h4 item-header">Заголовок элемента</a>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A vitae tempore dolor aut numquam nisi earum voluptate itaque reiciendis, corporis alias qui veritatis nobis quae ut maiores? Illo, nobis ab!</p>
+                @foreach($portfolios as $portfolio)
+                    <div class="col-md-3">
+                        <div class="portfolio-item">
+                            <img class="portfolio-img" src="{{$portfolio->images->first()->src ?? ''}}" alt="">
+                            <a href="{{route('portfolio.list')}}" class="button">
+                                К портфолио
+                            </a>
+                            <a href="{{route('portfolio.show', ['id' => $portfolio->id])}}" class="h4 item-header">{{$portfolio->title}}</a>
+                            <p>{{$portfolio->intro}}</p>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="portfolio-item">
-                        <img class="portfolio-img" src="https://via.placeholder.com/255x190" alt="">
-                        <a href="#" class="button">
-                            К портфолио
-                        </a>
-                        <a href="#" class="h4 item-header">Заголовок элемента</a>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam saepe delectus dolore cumque ratione animi nulla pariatur voluptatem perferendis! Atque, odit? Suscipit ratione id ut.</p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="portfolio-item">
-                        <img class="portfolio-img" src="https://via.placeholder.com/255x190" alt="">
-                        <a href="#" class="button">
-                            К портфолио
-                        </a>
-                        <a href="#" class="h4 item-header">Заголовок элемента</a>
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eveniet repudiandae alias optio ducimus beatae, aliquam eaque. Error unde accusantium dicta voluptate ad sed ducimus cum placeat laboriosam? Nesciunt ipsum perspiciatis, sed commodi iste repellendus corporis.</p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="portfolio-item">
-                        <img class="portfolio-img" src="https://via.placeholder.com/255x190" alt="">
-                        <a href="#" class="button">
-                            К портфолио
-                        </a>
-                        <a href="#" class="h4 item-header">Заголовок элемента</a>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio pariatur expedita sapiente quos commodi, eligendi laborum ipsum eos deleniti natus esse repudiandae. Ab ipsum hic vero ut tempora?</p>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>
     <section class="advantages bg-orange">
-        <h3>Сотрудничая с нами вы приобретаете</h3>
+        <h3>Изучаемый стек технологий</h3>
         <div class="container">
             <div class="my-slider">
                 <div class="col-sm-3">
                     <div class="adv-item">
                         <div class="img-rounded">
-                            <img src="{{asset('assets/img/icons/award.svg')}}" alt="" class="svg">
+                            <img src="{{asset('assets/img/icons/iconfinder_10-html5_104494.svg')}}" alt="" class="svg">
                         </div>
-                        <a href="" class="h4 item-header">Заголовок преимущества</a>
+                        <a href="" class="h4 item-header">HTML 5</a>
                         <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea officia laboriosam delectus cumque deserunt
                             impedit mollitia voluptatum aliquid! Laboriosam sit sint dolorum expedita eos. Sit, dolor? Culpa non soluta
                             quod.</p>
@@ -70,9 +42,9 @@
                 <div class="col-sm-3">
                     <div class="adv-item">
                         <div class="img-rounded">
-                            <img src="{{asset('assets/img/icons/agreement.svg')}}" alt="" class="svg">
+                            <img src="{{asset('assets/img/icons/iconfinder_256_Php_logo_4375347.svg')}}" alt="" class="svg">
                         </div>
-                        <a href="" class="h4 item-header">Заголовок преимущества</a>
+                        <a href="" class="h4 item-header">PHP 7+</a>
                         <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea officia laboriosam delectus cumque deserunt
                             impedit mollitia voluptatum aliquid! Laboriosam sit sint dolorum expedita eos. Sit, dolor? Culpa non soluta
                             quod.</p>
@@ -82,9 +54,9 @@
                 <div class="col-sm-3">
                     <div class="adv-item">
                         <div class="img-rounded">
-                            <img src="{{asset('assets/img/icons/money.svg')}}" alt="" class="svg">
+                            <img src="{{asset('assets/img/icons/iconfinder_js_282802.svg')}}" alt="" class="svg">
                         </div>
-                        <a href="" class="h4 item-header">Заголовок преимущества</a>
+                        <a href="" class="h4 item-header">JavaScript</a>
                         <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea officia laboriosam delectus cumque deserunt
                             impedit mollitia voluptatum aliquid! Laboriosam sit sint dolorum expedita eos. Sit, dolor? Culpa non soluta
                             quod.</p>
@@ -94,20 +66,48 @@
                 <div class="col-sm-3">
                     <div class="adv-item">
                         <div class="img-rounded">
-                            <img src="{{asset('assets/img/icons/shield.svg')}}" alt="" class="svg">
+                            <img src="{{asset('assets/img/icons/iconfinder_terminal_1608947.svg')}}" alt="" class="svg">
                         </div>
-                        <a href="" class="h4 item-header">Заголовок преимущества</a>
+                        <a href="" class="h4 item-header">Администрирование</a>
                         <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea officia laboriosam delectus cumque deserunt
                             impedit mollitia voluptatum aliquid! Laboriosam sit sint dolorum expedita eos. Sit, dolor? Culpa non soluta
                             quod.</p>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="post-list bg-light">
+        <h3>Последние статьи</h3>
+        <div class="container">
+            <div class="my-slider-posts">
+                <div class="row">
+                @foreach($posts as $post)
+                    <div class="col-lg-3">
+                        <div class="news-item">
+                            <a href="{{route('posts.show', ['id' => $post->id])}}">
+                                <img src="{{$post->image}}" alt="">
+                            </a>
+                            <div class="tag">
+                                <img src="{{$post->tag->icon}}" class="{{stripos($post->tag->icon, '.svg') ? 'svg' : ''}}" alt="">
+                                <a href="{{route('posts.section', ['tag' => $post->tag->name])}}">{{$post->tag->name}}</a>
+                            </div>
+                            <h4>
+                                <a href="{{route('posts.show', ['id' => $post->id])}}">
+                                    {{$post->title}}
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+                @endforeach
                 </div>
             </div>
         </div>
     </section>
 
     <section class="contact-us bg-light">
-        <h3>Свяжитесь с нами</h3>
+        <h3>Предложите тему или пишите просто так</h3>
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8">
